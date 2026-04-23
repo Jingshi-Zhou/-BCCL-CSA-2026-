@@ -63,3 +63,6 @@
 ## 项目网址
 - https://github.com/Jingshi-Zhou/-BCCL-CSA-2026-
 - 本测评任务信息将持续更新
+
+## 报名方式
+- https://docs.google.com/forms/d/1_6uvZvzkRY70egxr7KpQM5i6oQcucDGY0PSqfyf9vRI/edit
