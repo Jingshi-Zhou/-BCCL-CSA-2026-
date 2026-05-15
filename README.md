@@ -62,27 +62,46 @@
 ### 2.3 数据样例
 
 本次评测提供 JSON 格式的数据集，以下为数据样例：
-<!--
+
 ```json
 {
-    "id": "001",
-    "zh_text": "举杯邀明月，对影成三人。",
-    "en_text": "I raise my cup to invite the bright moon, and facing my shadow, we become three.",
-    "sentiment": "Neutral",
-    "emotion": {
-        "Anger": 0.00,
-        "Disgust": 0.00,
-        "Fear": 0.00,
-        "Joy": 0.25,
-        "Sadness": 0.55,
-        "Surprise": 0.05,
-        "Neutral": 0.15
+  "id": 1,
+  "source_book": "caigentan",
+  "zh": {
+    "text": "栖守道德者，寂寞一时；依附权势者，凄凉万古。故达人观物外之物，思身后之身，宁受一时之寂寞，毋取万古之凄凉。",
+    "sentiment": {
+      "label": "neutral",
+      "point": -0.5
     },
-    "source": "静夜思（李白）",
-    "genre": "诗歌"
+    "emotion": {
+      "angry": 0.05,
+      "disgusted": 0.05,
+      "fearful": 0.1,
+      "happy": 0,
+      "sad": 0.4,
+      "surprised": 0,
+      "neutral": 0.4
+    }
+  },
+  "en": {
+    "text": "If you strive to make Truth your home, You may sometimes be lonely; But fawning on the powerful and influential, You will feel the chill of solitude for the ages.",
+    "sentiment": {
+      "label": "negative",
+      "point": -0.5
+    },
+    "emotion": {
+      "angry": 0.1,
+      "disgusted": 0,
+      "fearful": 0.2,
+      "happy": 0,
+      "sad": 0.4,
+      "surprised": 0,
+      "neutral": 0.3
+    }
+  }
 }
 ```
--->
+
 
 
 ### 2.4 数据字段说明
@@ -98,39 +117,77 @@
 | genre | string | 文本体裁（诗歌/小说/戏曲/哲学等） |
 
 
-<!--
-### 2.5 结果提交
 
+### 2.5 结果提交
+<!--
 提交的结果文件须遵循数据样例的 JSON 格式，每条数据应为一个 JSON 对象，包含样例中的所有字段，并补充模型预测字段。格式示意如下：
 
 ```json
-{
-    "id": "001",
-    "zh_text": "举杯邀明月，对影成三人。",
-    "en_text": "I raise my cup to invite the bright moon, and facing my shadow, we become three.",
-    "pred_sentiment_zh": "Neutral",
-    "pred_sentiment_en": "Neutral",
-    "pred_emotion_zh": {
-        "Anger": 0.01, "Disgust": 0.00, "Fear": 0.00,
-        "Joy": 0.23, "Sadness": 0.57, "Surprise": 0.04, "Neutral": 0.15
-    },
-    "pred_emotion_en": {
-        "Anger": 0.01, "Disgust": 0.00, "Fear": 0.01,
-        "Joy": 0.20, "Sadness": 0.59, "Surprise": 0.04, "Neutral": 0.15
+[
+  {
+    "_说明": "子任务一：中文预测（每行一条 JSON，文件如 zh_submit.jsonl）",
+    "id": 2,
+    "sentiment_label": "neutral",
+    "sentiment_point": 0.0,
+    "emotion": {
+      "angry": 0.05,
+      "disgusted": 0.05,
+      "fearful": 0.1,
+      "happy": 0.0,
+      "sad": 0.35,
+      "surprised": 0.0,
+      "neutral": 0.45
     }
-}
+  },
+  {
+    "_说明": "子任务一：英文预测（每行一条 JSON，文件如 en_submit.jsonl）",
+    "id": 2,
+    "sentiment_label": "negative",
+    "sentiment_point": -0.35,
+    "emotion": {
+      "angry": 0.08,
+      "disgusted": 0.02,
+      "fearful": 0.15,
+      "happy": 0.0,
+      "sad": 0.45,
+      "surprised": 0.0,
+      "neutral": 0.3
+    }
+  },
+  {
+    "_说明": "子任务二：跨语迁移时增加 target_lang，表示预测目标语种（zh 或 en）",
+    "id": 2,
+    "target_lang": "en",
+    "sentiment_label": "negative",
+    "sentiment_point": -0.35,
+    "emotion": {
+      "angry": 0.08,
+      "disgusted": 0.02,
+      "fearful": 0.15,
+      "happy": 0.0,
+      "sad": 0.45,
+      "surprised": 0.0,
+      "neutral": 0.3
+    }
+  },
+  {
+    "_说明": "子任务三：平行句对一致性（每行一条 JSON）",
+    "id": 2,
+    "consistency_score": 0.92
+  }
+]
 ```
 
 
 将结果文件直接压缩为 `submit.zip`，提交时请确保上传文件名为 `submit.zip`。
--->
 
+-->
 
 ---
 
-<!--
-## 3 赛道设置
 
+## 3 赛道设置
+<!--
 本次评测设置两个赛道，分为不微调和微调赛道。两条赛道的评分指标相同，最终榜单各自独立排名。
 
 | 赛道 | 允许资源/方法 |
@@ -144,11 +201,11 @@
 - Track-A 赛道允许使用外部数据，但最终须确切提供数据源及对应外部数据说明；
 - Track-B 赛道限制模型参数不超过 7B（按通常认知的 7B 级别计算，而非绝对数值严格限制），参赛者可选择主流的 7B 级开源模型进行微调；
 - Track-B 赛道要求开发阶段采用的策略不会改变最终提交模型的单模型属性和参数规模。
-
+-->
 ---
 
 ## 4 评价标准
-
+<!--
 ### 4.1 子任务一 & 子任务二（情感分类与零样本迁移）
 
 - **Sentiment（情感极性）：** Accuracy、Macro-F1 等分类指标
@@ -165,11 +222,11 @@ $$\text{F1} = \frac{2 \times \text{Precision} \times \text{Recall}}{\text{Precis
 ### 4.2 子任务三（平行文本一致性评估）
 
 - **Consistency（跨语一致性）：** 面向平行句对的跨语一致性评分指标，具体计算方式以最终评测细则为准。
-
+-->
 ---
 
 ## 5 榜单说明
-
+<!--
 **子任务一 & 子任务二评分：**
 
 $$\text{Score}_{\text{Task1/2}} = 0.5 \times F1 + 0.25 \times \text{Precision} + 0.25 \times \text{Recall}$$
