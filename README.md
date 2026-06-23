@@ -303,6 +303,14 @@ Track-A 和 Track-B 将分别发布综合榜单，每条赛道的奖项设置如
 
 ---
 
+## 模型参数规模
+
+- Track-A（不微调）：不限制模型参数规模。
+- Track-B（微调）：基础模型参数规模不超过 7B。
+- 本澄清不改变评分公式，仅补充赛道执行口径。
+
+---
+
 ## 项目网址
 
 - GitHub：[https://github.com/Jingshi-Zhou/-BCCL-CSA-2026-](https://github.com/Jingshi-Zhou/-BCCL-CSA-2026-)
