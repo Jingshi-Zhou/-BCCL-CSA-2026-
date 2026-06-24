@@ -1,0 +1,94 @@
+# BCCL-CSA 2026 提交模板汇总
+
+本文档汇总子任务一、子任务二两个方向、子任务三的提交格式。  
+提交文件均为 **JSONL**（每行一个 JSON 对象）。
+
+---
+
+## 1) 子任务一：中文情感分析（Task1）
+
+**适用数据**：中文测试集  
+**预测目标**：`sentiment.label` + `sentiment.point` + `emotion`（7维）
+
+```json
+{"id": 2, "sentiment": {"label": "neutral", "point": 0.10}, "emotion": {"angry": 0.05, "disgusted": 0.05, "fearful": 0.10, "happy": 0.20, "sad": 0.20, "surprised": 0.10, "neutral": 0.30}}
+{"id": 3, "sentiment": {"label": "positive", "point": 0.35}, "emotion": {"angry": 0.02, "disgusted": 0.03, "fearful": 0.05, "happy": 0.45, "sad": 0.10, "surprised": 0.05, "neutral": 0.30}}
+```
+
+---
+
+## 2) 子任务二：跨语言零样本迁移（Task2）
+
+子任务二需要分别提交两个方向。
+
+### 2.1 ZH→EN（中文训练/验证，英文测试）
+
+**适用数据**：英文测试集  
+**预测目标**：`sentiment.label` + `sentiment.point` + `emotion`（7维）
+
+```json
+{"id": 2, "sentiment": {"label": "neutral", "point": 0.05}, "emotion": {"angry": 0.04, "disgusted": 0.05, "fearful": 0.11, "happy": 0.22, "sad": 0.20, "surprised": 0.08, "neutral": 0.30}}
+{"id": 3, "sentiment": {"label": "neutral", "point": 0.00}, "emotion": {"angry": 0.05, "disgusted": 0.05, "fearful": 0.10, "happy": 0.20, "sad": 0.15, "surprised": 0.05, "neutral": 0.40}}
+```
+
+### 2.2 EN→ZH（英文训练/验证，中文测试）
+
+**适用数据**：中文测试集  
+**预测目标**：`sentiment.label` + `sentiment.point` + `emotion`（7维）
+
+```json
+{"id": 2, "sentiment": {"label": "neutral", "point": 0.10}, "emotion": {"angry": 0.05, "disgusted": 0.04, "fearful": 0.10, "happy": 0.18, "sad": 0.23, "surprised": 0.10, "neutral": 0.30}}
+{"id": 3, "sentiment": {"label": "negative", "point": -0.30}, "emotion": {"angry": 0.20, "disgusted": 0.20, "fearful": 0.10, "happy": 0.05, "sad": 0.25, "surprised": 0.05, "neutral": 0.15}}
+```
+
+---
+
+## 3) 子任务三：平行文本一致性评估（Task3）
+
+**适用数据**：中英平行测试对  
+**预测目标**：分别输出 `zh` 与 `en` 两侧的 `sentiment.label` 与 `emotion`（7维）
+
+```json
+{"id": 2, "zh": {"sentiment": {"label": "neutral"}, "emotion": {"angry": 0.05, "disgusted": 0.05, "fearful": 0.10, "happy": 0.20, "sad": 0.20, "surprised": 0.10, "neutral": 0.30}}, "en": {"sentiment": {"label": "neutral"}, "emotion": {"angry": 0.04, "disgusted": 0.05, "fearful": 0.11, "happy": 0.22, "sad": 0.20, "surprised": 0.08, "neutral": 0.30}}}
+{"id": 3, "zh": {"sentiment": {"label": "positive"}, "emotion": {"angry": 0.02, "disgusted": 0.03, "fearful": 0.05, "happy": 0.45, "sad": 0.10, "surprised": 0.05, "neutral": 0.30}}, "en": {"sentiment": {"label": "neutral"}, "emotion": {"angry": 0.05, "disgusted": 0.05, "fearful": 0.10, "happy": 0.20, "sad": 0.15, "surprised": 0.05, "neutral": 0.40}}}
+```
+
+---
+
+## 4) 通用字段约束（所有任务）
+
+- `id`：必须完整、唯一，并与对应测试集一一对应
+- `sentiment.label`：仅允许 `positive` / `neutral` / `negative`（小写）
+- `sentiment.point`：数值型，建议范围 `[-1, 1]`
+- `emotion`：固定 7 维键名，均为非负浮点数，和应为 1（允许小数误差）
+- 固定顺序建议：`angry, disgusted, fearful, happy, sad, surprised, neutral`
+- 所有提交文件名与压缩包文件名必须包含参赛队伍名称（英文/拼音缩写均可，建议仅使用字母、数字、下划线）
+
+---
+
+## 5) 提交文件命名与打包规范（必须遵守）
+
+设参赛队伍名称（英文/拼音）为 `TeamName`，则文件命名如下：
+
+```text
+TeamName_task1_zh_pred.jsonl
+TeamName_task2_zh2en_pred.jsonl
+TeamName_task2_en2zh_pred.jsonl
+TeamName_task3_pair_pred.jsonl
+```
+
+将上述 4 个文件放入同一目录后，压缩包文件名必须为：
+
+```text
+TeamName_submit.zip
+```
+
+示例（队伍名为 `QUST_NLP`）：
+
+```text
+QUST_NLP_task1_zh_pred.jsonl
+QUST_NLP_task2_zh2en_pred.jsonl
+QUST_NLP_task2_en2zh_pred.jsonl
+QUST_NLP_task3_pair_pred.jsonl
+QUST_NLP_submit.zip
+```
