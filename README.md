@@ -318,7 +318,7 @@ Track-A 和 Track-B 将分别发布综合榜单，每条赛道的奖项设置如
 - GitHub：[https://github.com/Jingshi-Zhou/-BCCL-CSA-2026-](https://github.com/Jingshi-Zhou/-BCCL-CSA-2026-)
 
 BCCL-CSA 2026 官方排行榜（CodaBench）：
-- Leaderboard：https://www.codabench.org/competitions/17317/
+- Leaderboard：[https://www.codabench.org/competitions/17317/](https://www.codabench.org/competitions/16786/)
 
 提交说明、评分细则与常见问题请见：
 - 评分细则：`评分细则.md`
