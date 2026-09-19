@@ -1,4 +1,5 @@
 # CCL2026 第一届跨语言文学情感分析一致性评测
+Cross‑lingual Sentiment Consistency Analysis for Classical Chinese Literature（BCCL‑CSA 2026)
 
 西交利物浦大学 & 哈尔滨工业大学（深圳）
 
